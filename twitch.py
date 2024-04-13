@@ -23,7 +23,7 @@ class Bot(commands.Bot):
         print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
 
     @commands.command(name="sr", aliases=("queue", "q", "request", "play", "p"))
-    async def song_request(self, ctx: commands.Context, query):
+    async def song_request(self, ctx: commands.Context, *, query: str):
         cmd = spotify.add_track_to_queue(query)
         await ctx.send(cmd)
         print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
