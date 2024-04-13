@@ -161,3 +161,4 @@ cython_debug/
 
 # Custom Ignores
 user_token.json
+channels.txt

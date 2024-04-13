@@ -20,8 +20,5 @@ async def authenticate():
     await twitch.close()
 
 
-if __name__ == "__main__":
-    ...
-
 
 

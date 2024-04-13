@@ -60,7 +60,3 @@ def add_track_to_queue(query):
             return f"Added {title} by {", ".join(artists)} to the queue!"
     else:
         return f"No results found for {query}"
-
-
-if __name__ == "__main__":
-    ...
