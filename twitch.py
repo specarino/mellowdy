@@ -19,7 +19,7 @@ class Bot(commands.Bot):
             with open("channels.txt", "r") as file:
                 for channel in file.readlines():
                     self.channels.append(channel.strip())
-            self.channels = list(set(self.channels))
+            self.channels = list(set(map(str.lower, self.channels)))
     
         await super().join_channels(channels=self.channels)
         print(f"Twitch username | {self.nick}")
