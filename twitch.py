@@ -1,26 +1,18 @@
 from twitchio.ext import commands
 import spotify
-import os
-from dotenv import load_dotenv
+import json
 
-load_dotenv()
-
-ACCESS_TOKEN = os.getenv("TW_ACCESS_TOKEN")
-PREFIX=os.getenv("TW_PREFIX")
-CHANNEL=os.getenv("TW_CHANNEL")
 
 class Bot(commands.Bot):
-
     def __init__(self):
-        super().__init__(
-            token=ACCESS_TOKEN,
-            prefix=PREFIX,
-            initial_channels=[
-                CHANNEL,
-            ]
-        )
+        with open('user_token.json', "r") as file:
+            tokens = json.loads(file.read())
+        ACCESS_TOKEN = tokens["token"]
+        
+        super().__init__(token = ACCESS_TOKEN, prefix = "!")
 
     async def event_ready(self):
+        await super().join_channels(channels=[self.nick])
         print(f"Logged in as | {self.nick}")
         print(f"User ID is   | {self.user_id}")
 
@@ -37,5 +29,5 @@ class Bot(commands.Bot):
         print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
 
 
-bot = Bot()
-bot.run()
+if __name__ == "__main__":
+    ...

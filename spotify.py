@@ -10,12 +10,14 @@ CLIENT_ID=os.getenv("SP_CLIENT_ID")
 CLIENT_SECRET=os.getenv("SP_CLIENT_SECRET")
 REDIRECT_URI=os.getenv("SP_REDIRECT_URI")
 
+
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
     redirect_uri=REDIRECT_URI,
     scope="user-read-currently-playing user-modify-playback-state")
 )
+
 
 def get_currently_playing():
     song = sp.currently_playing()
@@ -31,6 +33,7 @@ def get_currently_playing():
         return f"{title} - {", ".join(artists)} | {url}"
     else:
         return "Nothing is playing."
+
 
 def add_track_to_queue(query):
     results = sp.search(query, limit=1, type="track")
@@ -53,5 +56,6 @@ def add_track_to_queue(query):
     else:
         return f"No results found for {query}"
 
+
 if __name__ == "__main__":
-    print(add_track_to_queue("metro future kendrick"))
+    ...
