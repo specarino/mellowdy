@@ -1,4 +1,4 @@
-# Mellowdy
+# mellowdy
 
 A basic Twitch chat bot hosted locally, designed to show the currently playing song and enable viewers to request tracks.
 
