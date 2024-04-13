@@ -13,6 +13,7 @@ USER_SCOPE = [AuthScope.CHAT_READ, AuthScope.CHAT_EDIT]
 
 
 async def authenticate():
+    print("Waiting on Twitch authentication...")
     twitch = await Twitch(APP_ID, APP_SECRET)
     helper = UserAuthenticationStorageHelper(twitch, USER_SCOPE)
     await helper.bind()
