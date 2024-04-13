@@ -14,8 +14,9 @@ class Bot(commands.Bot):
     async def event_ready(self):
         self.channels = [self.nick]
         await super().join_channels(channels=self.channels)
-        print(f"Logged in as    | {self.nick}")
+        print(f"Twitch username | {self.nick}")
         print(f"User ID is      | {self.user_id}")
+        print(f"Spotify name    | {spotify.get_username()}")
         print(f"Joined channels | {self.channels}")
 
     @commands.command(name="song", aliases=("playing", "np"))

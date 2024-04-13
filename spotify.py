@@ -19,6 +19,11 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
 )
 
 
+def get_username():
+    user = sp.current_user()
+    return user["display_name"]
+
+
 def get_currently_playing():
     song = sp.currently_playing()
 
