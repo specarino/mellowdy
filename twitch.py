@@ -12,6 +12,7 @@ class Bot(commands.Bot):
         
         super().__init__(token = ACCESS_TOKEN, prefix = "!")
 
+
     async def event_ready(self):
         self.channels = [self.nick]
 
@@ -27,12 +28,22 @@ class Bot(commands.Bot):
         print(f"Spotify name    | {spotify.get_username()}")
         print(f"Joined channels | {self.channels}")
 
+
+    async def event_command_error(self, ctx: commands.Context, error: Exception):
+        if isinstance(error, commands.CommandOnCooldown):
+            cmd = f"Command on cooldown. Retry after {int(error.retry_after)} seconds."
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
     @commands.command(name="song", aliases=("music", "playing", "np"))
     async def song_name(self, ctx: commands.Context):
         cmd = spotify.get_currently_playing()
         await ctx.send(cmd)
         print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
 
+
+    @commands.cooldown(rate=1, per=300, bucket=commands.Bucket.member)
     @commands.command(name="sr", aliases=("queue", "q", "request", "r", "play", "p"))
     async def song_request(self, ctx: commands.Context, *, query: str):
         cmd = spotify.add_track_to_queue(query)
