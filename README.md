@@ -21,7 +21,7 @@ channel_1
 channel_2
 etc.
 ```
-Either run `main.py` to use the bot or pack it using,
+Either run `src/main.py` to use the bot or pack it using,
 ```sh
-pyinstaller --onefile --name mellowdy main.py
+pyinstaller --onefile --name mellowdy src/main.py
 ```
