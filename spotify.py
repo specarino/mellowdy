@@ -17,6 +17,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     redirect_uri=REDIRECT_URI,
     scope="user-read-currently-playing user-modify-playback-state")
 )
+if sp.current_user():
+    print("Spotify authenticated!")
 
 
 def get_username():

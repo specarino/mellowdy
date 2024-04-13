@@ -17,8 +17,5 @@ async def authenticate():
     twitch = await Twitch(APP_ID, APP_SECRET)
     helper = UserAuthenticationStorageHelper(twitch, USER_SCOPE)
     await helper.bind()
+    print("Twitch authenticated!")
     await twitch.close()
-
-
-
-
