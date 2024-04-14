@@ -51,6 +51,17 @@ class Bot(commands.Bot):
         print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
 
 
+    @commands.command(name="+songrequest", aliases=("+sr", "+request", "+r", "pls"))
+    async def song_request_no_limit(self, ctx: commands.Context, *, query: str):
+        if ctx.author.is_broadcaster or ctx.author.is_mod:
+            cmd = spotify.add_track_to_queue(query)
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+        else:
+            cmd = "Command restricted to moderators only."
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
     @commands.command(name="next", aliases=("n", "nextsong", "ns"))
     async def get_next(self, ctx: commands.Context, amount: int = 1):
         cmd = spotify.get_next_in_queue(amount)
