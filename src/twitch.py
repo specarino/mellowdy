@@ -79,7 +79,19 @@ class Bot(commands.Bot):
     @commands.command(name="skip", aliases=("s"))
     async def skip_track(self, ctx: commands.Context):
         if ctx.author.is_broadcaster or ctx.author.is_mod:
-            cmd = spotify.skip_current_track()
+            cmd = spotify.goto_next_track()
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+        else:
+            cmd = "Command restricted to moderators only."
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
+    @commands.command(name="previous", aliases=("prev", "rewind"))
+    async def prev_track(self, ctx: commands.Context):
+        if ctx.author.is_broadcaster or ctx.author.is_mod:
+            cmd = spotify.goto_prev_track()
             await ctx.send(cmd)
             print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
         else:

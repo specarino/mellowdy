@@ -15,7 +15,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
     redirect_uri=REDIRECT_URI,
-    scope="user-read-currently-playing user-modify-playback-state")
+    scope="user-read-currently-playing user-read-playback-state user-modify-playback-state")
 )
 if sp.current_user():
     print("Spotify authenticated!")
@@ -92,7 +92,7 @@ def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
         return "Nothing in queue!"
     
 
-def skip_current_track():
+def goto_next_track():
     song = get_currently_playing()
     try:
         sp.next_track()
@@ -101,6 +101,17 @@ def skip_current_track():
     else:
         stripped = song.split(" | ", 1)[0]
         return f"Skipped {stripped}"
+
+
+def goto_prev_track():
+    song = get_currently_playing()
+    try:
+        sp.previous_track()
+    except Exception:
+        return f"Failed to rewind track!"
+    else:
+        stripped = song.split(" | ", 1)[0]
+        return f"Rewinding to {stripped}"
     
 
 def pause_current_track():
