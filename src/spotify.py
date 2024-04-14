@@ -90,4 +90,42 @@ def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
             return " // ".join(titles)
     else:
         return "Nothing in queue!"
+    
 
+def skip_current_track():
+    try:
+        sp.next_track()
+    except Exception:
+        return f"Failed to skip track!"
+    else:
+        song = get_currently_playing()
+        stripped = song.split(" | ", 1)[0]
+        return f"Skipped {stripped}"
+    
+
+def pause_current_track():
+    try:
+        sp.pause_playback()
+    except Exception as error:
+        if error.args[0] == 403:
+            return "Track already paused!"
+        else:
+            return "Failed to resume track!"
+    else:
+        song = get_currently_playing()
+        stripped = song.split(" | ", 1)[0]
+        return f"Paused {stripped}"
+    
+
+def resume_current_track():
+    try:
+        sp.start_playback()
+    except Exception as error:
+        if error.args[0] == 403:
+            return "Track already playing!"
+        else:
+            return "Failed to resume track!"
+    else:
+        song = get_currently_playing()
+        stripped = song.split(" | ", 1)[0]
+        return f"Resumed {stripped}"

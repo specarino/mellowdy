@@ -36,7 +36,7 @@ class Bot(commands.Bot):
             print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
 
 
-    @commands.command(name="song", aliases=("s", "music", "nowplaying", "np", "playing"))
+    @commands.command(name="song", aliases=("music", "nowplaying", "np", "playing"))
     async def song_name(self, ctx: commands.Context):
         cmd = spotify.get_currently_playing()
         await ctx.send(cmd)
@@ -44,7 +44,7 @@ class Bot(commands.Bot):
 
 
     @commands.cooldown(rate=1, per=300, bucket=commands.Bucket.member)
-    @commands.command(name="songrequest", aliases=("sr", "request", "r", "play", "p"))
+    @commands.command(name="songrequest", aliases=("sr", "request", "r"))
     async def song_request(self, ctx: commands.Context, *, query: str):
         cmd = spotify.add_track_to_queue(query)
         await ctx.send(cmd)
@@ -63,3 +63,39 @@ class Bot(commands.Bot):
         cmd = spotify.get_next_in_queue(amount)
         await ctx.send(cmd)
         print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
+    @commands.command(name="skip", aliases=("s"))
+    async def skip_track(self, ctx: commands.Context):
+        if ctx.author.is_broadcaster or ctx.author.is_mod:
+            cmd = spotify.skip_current_track()
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+        else:
+            cmd = "Command restricted to moderators only."
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
+    @commands.command(name="pause", aliases=("stop"))
+    async def pause_track(self, ctx: commands.Context):
+        if ctx.author.is_broadcaster or ctx.author.is_mod:
+            cmd = spotify.pause_current_track()
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+        else:
+            cmd = "Command restricted to moderators only."
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
+    @commands.command(name="resume", aliases=("play", "p"))
+    async def resume_track(self, ctx: commands.Context):
+        if ctx.author.is_broadcaster or ctx.author.is_mod:
+            cmd = spotify.resume_current_track()
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+        else:
+            cmd = "Command restricted to moderators only."
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
