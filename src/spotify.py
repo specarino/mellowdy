@@ -93,12 +93,12 @@ def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
     
 
 def skip_current_track():
+    song = get_currently_playing()
     try:
         sp.next_track()
     except Exception:
         return f"Failed to skip track!"
     else:
-        song = get_currently_playing()
         stripped = song.split(" | ", 1)[0]
         return f"Skipped {stripped}"
     
