@@ -36,7 +36,7 @@ class Bot(commands.Bot):
             print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
 
 
-    @commands.command(name="song", aliases=("music", "playing", "np"))
+    @commands.command(name="song", aliases=("s", "music", "nowplaying", "np", "playing"))
     async def song_name(self, ctx: commands.Context):
         cmd = spotify.get_currently_playing()
         await ctx.send(cmd)
@@ -44,8 +44,22 @@ class Bot(commands.Bot):
 
 
     @commands.cooldown(rate=1, per=300, bucket=commands.Bucket.member)
-    @commands.command(name="sr", aliases=("queue", "q", "request", "r", "play", "p"))
+    @commands.command(name="songrequest", aliases=("sr", "request", "r", "play", "p"))
     async def song_request(self, ctx: commands.Context, *, query: str):
         cmd = spotify.add_track_to_queue(query)
+        await ctx.send(cmd)
+        print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
+    @commands.command(name="next", aliases=("n", "nextsong", "ns"))
+    async def get_next(self, ctx: commands.Context, amount: int = 1):
+        cmd = spotify.get_next_in_queue(amount)
+        await ctx.send(cmd)
+        print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
+    @commands.command(name="queue", aliases=("q"))
+    async def get_queue(self, ctx: commands.Context, amount: int = 5):
+        cmd = spotify.get_next_in_queue(amount)
         await ctx.send(cmd)
         print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')

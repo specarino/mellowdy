@@ -9,7 +9,6 @@ load_dotenv()
 CLIENT_ID=os.getenv("SP_CLIENT_ID")
 CLIENT_SECRET=os.getenv("SP_CLIENT_SECRET")
 REDIRECT_URI=os.getenv("SP_REDIRECT_URI")
-print(CLIENT_ID)
 
 print("Waiting on Spotify authentication...")
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
@@ -22,12 +21,12 @@ if sp.current_user():
     print("Spotify authenticated!")
 
 
-def get_username():
+def get_username() -> str:
     user = sp.current_user()
     return user["display_name"]
 
 
-def get_currently_playing():
+def get_currently_playing() -> str:
     song = sp.currently_playing()
 
     if song:
@@ -43,7 +42,7 @@ def get_currently_playing():
         return "Nothing is playing."
 
 
-def add_track_to_queue(query):
+def add_track_to_queue(query: str) -> str:
     results = sp.search(query, limit=1, type="track")
     if results["tracks"]["items"]:
         title = results["tracks"]["items"][0]["name"]
@@ -63,3 +62,32 @@ def add_track_to_queue(query):
             return f"Added {title} by {", ".join(artists)} to the queue!"
     else:
         return f"No results found for {query}"
+    
+
+def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
+    if amount > bound: amount = bound
+    if amount < 1: amount = 1
+
+    results = sp.queue()
+    queue = results["queue"]
+
+    if queue:
+        titles = list()
+
+        for index in range(amount):
+            title = queue[index]["name"]
+            titles.append(title)
+            if amount == 1:
+                artists_json = queue[index]["artists"]
+                artists = list()
+                for artist in artists_json:
+                    artists.append(artist["name"])
+                track = f"{title} by {", ".join(artists)}"
+
+        if amount == 1:
+            return track
+        else:
+            return " // ".join(titles)
+    else:
+        return "Nothing in queue!"
+
