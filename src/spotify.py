@@ -37,7 +37,7 @@ def get_currently_playing() -> str:
             artists.append(artist["name"])
         url = song["item"]["external_urls"]["spotify"]
 
-        return f"{title} - {", ".join(artists)} | {url}"
+        return f"{title} - {", ".join(artists)} // {url}"
     else:
         return "Nothing is playing."
 
@@ -94,7 +94,7 @@ def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
 
 def goto_next_track():
     song = get_currently_playing()
-    stripped = song.split(" | ", 1)[0]
+    stripped = song.split(" // ", 1)[0]
 
     try:
         sp.next_track()
@@ -106,7 +106,7 @@ def goto_next_track():
 
 def goto_prev_track():
     song = get_currently_playing()
-    stripped = song.split(" | ", 1)[0]
+    stripped = song.split(" // ", 1)[0]
     
     try:
         sp.previous_track()
@@ -126,7 +126,7 @@ def pause_current_track():
             return "Failed to resume track!"
     else:
         song = get_currently_playing()
-        stripped = song.split(" | ", 1)[0]
+        stripped = song.split(" // ", 1)[0]
         return f"Paused {stripped}"
     
 
@@ -140,7 +140,7 @@ def resume_current_track():
             return "Failed to resume track!"
     else:
         song = get_currently_playing()
-        stripped = song.split(" | ", 1)[0]
+        stripped = song.split(" // ", 1)[0]
         return f"Resumed {stripped}"
     
 def set_volume(volume: int):
