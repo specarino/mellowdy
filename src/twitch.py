@@ -99,3 +99,15 @@ class Bot(commands.Bot):
             cmd = "Command restricted to moderators only."
             await ctx.send(cmd)
             print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+
+
+    @commands.command(name="volume", aliases=("vol", "v"))
+    async def change_volume(self, ctx: commands.Context, volume: int):
+        if ctx.author.is_broadcaster or ctx.author.is_mod:
+            cmd = spotify.set_volume(volume)
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')
+        else:
+            cmd = "Command restricted to moderators only."
+            await ctx.send(cmd)
+            print(f'{ctx.author.name} used "{str(ctx.message.content).strip()}" | {cmd}')

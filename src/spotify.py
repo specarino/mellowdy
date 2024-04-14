@@ -129,3 +129,14 @@ def resume_current_track():
         song = get_currently_playing()
         stripped = song.split(" | ", 1)[0]
         return f"Resumed {stripped}"
+    
+def set_volume(volume: int):
+    if volume > 100 : volume = 100
+    if volume < 0: volume = 0
+
+    try:
+        sp.volume(volume)
+    except Exception:
+            return f"Failed to change volume!"
+    else:
+        return f"Volume: {volume}%"
