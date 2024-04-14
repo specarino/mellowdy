@@ -94,23 +94,25 @@ def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
 
 def goto_next_track():
     song = get_currently_playing()
+    stripped = song.split(" | ", 1)[0]
+
     try:
         sp.next_track()
     except Exception:
         return f"Failed to skip track!"
     else:
-        stripped = song.split(" | ", 1)[0]
         return f"Skipped {stripped}"
 
 
 def goto_prev_track():
     song = get_currently_playing()
+    stripped = song.split(" | ", 1)[0]
+    
     try:
         sp.previous_track()
     except Exception:
         return f"Failed to rewind track!"
     else:
-        stripped = song.split(" | ", 1)[0]
         return f"Rewinding to {stripped}"
     
 
