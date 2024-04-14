@@ -4,7 +4,7 @@
 
 # mellowdy
 
-A basic Twitch chat bot hosted locally, designed to show the currently playing song and enable viewers to request tracks.
+A basic Twitch chat bot hosted locally, designed to show the currently playing song, enable viewers to request tracks and view the current queue. Mods also have access to playback controls like pause, play, skip and volume.
 
 # Installing from source
 ```sh
