@@ -2,6 +2,9 @@
 
 A basic Twitch chat bot hosted locally, designed to show the currently playing song and enable viewers to request tracks.
 
+# Installing binaries
+Soon™
+
 # Installing from source
 ```sh
 pip install -r requirements.txt
