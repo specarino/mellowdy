@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="128" height="128" src="https://github.com/specarino/mellowdy/blob/main/assets/mellowdy-256px.png?raw=True">
+</p>
+
 # mellowdy
 
 A basic Twitch chat bot hosted locally, designed to show the currently playing song and enable viewers to request tracks.
@@ -25,3 +29,5 @@ Either run `src/main.py` to use the bot or pack it using,
 ```sh
 pyinstaller --onefile --name mellowdy src/main.py
 ```
+
+<a href="https://www.flaticon.com/free-icons/marshmallow" title="marshmallow icons">Marshmallow icons created by Freepik - Flaticon</a>
