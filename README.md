@@ -12,12 +12,12 @@ pip install -r requirements.txt
 ```
 Create a file named `.env`. Populate the variables with info from [Spotify](https://developer.spotify.com/dashboard) and [Twitch](https://dev.twitch.tv/console)
 ```sh
-SP_CLIENT_ID=""
-SP_CLIENT_SECRET=""
-SP_REDIRECT_URI=""
+SPOTIPY_CLIENT_ID=""
+SPOTIPY_CLIENT_SECRET=""
+SPOTIPY_REDIRECT_URI=""
 
-TW_APP_ID=""
-TW_APP_SECRET=""
+TWITCH_APP_ID=""
+TWITCH_APP_SECRET=""
 ```
 (Optional) Create a file called `channels.txt` in case the bot is authorized using a different Twitch account than the one used for streaming. *By default, the code bot joins the channel of the user authenticated with Twitch.* Each line in the file represents a different channel's name.
 ```

@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-APP_ID = os.getenv("TW_APP_ID")
-APP_SECRET = os.getenv("TW_APP_SECRET")
+APP_ID = os.getenv("TWITCH_APP_ID")
+APP_SECRET = os.getenv("TWITCH_APP_SECRET")
 USER_SCOPE = [AuthScope.CHAT_READ, AuthScope.CHAT_EDIT]
 
 
