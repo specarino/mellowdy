@@ -1,5 +1,5 @@
-from twitchio.ext import commands
-import spotify
+from . import spotify
+from twitchio.ext import commands, routines
 import json
 from os.path import exists
 
@@ -11,6 +11,12 @@ class Bot(commands.Bot):
         ACCESS_TOKEN = tokens["token"]
         
         super().__init__(token = ACCESS_TOKEN, prefix = "!")
+
+
+    @routines.routine(minutes=5)
+    async def keep_alive(self):
+        spotify.get_username()
+        print(f"Keep alive pulse successful.")
 
 
     async def event_ready(self):
@@ -27,6 +33,9 @@ class Bot(commands.Bot):
         print(f"User ID is      | {self.user_id}")
         print(f"Spotify name    | {spotify.get_username()}")
         print(f"Joined channels | {self.channels}")
+
+        # can't gracefully exit this
+        self.keep_alive.start()
 
 
     async def event_command_error(self, ctx: commands.Context, error: Exception):

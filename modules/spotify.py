@@ -10,6 +10,7 @@ CLIENT_ID=os.getenv("SPOTIPY_CLIENT_ID")
 CLIENT_SECRET=os.getenv("SPOTIPY_CLIENT_SECRET")
 REDIRECT_URI=os.getenv("SPOTIPY_REDIRECT_URI")
 
+
 print("Waiting on Spotify authentication...")
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=CLIENT_ID,
