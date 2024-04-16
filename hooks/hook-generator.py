@@ -22,7 +22,6 @@ for key, value in env.items():
 
 content += """}
 
-# Set environment variables
 for key, value in env.items():
     os.environ[key] = value
 """
