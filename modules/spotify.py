@@ -9,25 +9,26 @@ load_dotenv()
 CLIENT_ID=os.getenv("SPOTIPY_CLIENT_ID")
 CLIENT_SECRET=os.getenv("SPOTIPY_CLIENT_SECRET")
 REDIRECT_URI=os.getenv("SPOTIPY_REDIRECT_URI")
+SCOPE="user-read-currently-playing user-read-playback-state user-modify-playback-state"
 
 
-print("Waiting on Spotify authentication...")
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+def auth():
+    return spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
     redirect_uri=REDIRECT_URI,
-    scope="user-read-currently-playing user-read-playback-state user-modify-playback-state")
+    scope=SCOPE)
 )
-if sp.current_user():
-    print("Spotify authenticated!")
 
 
 def get_username() -> str:
+    sp = auth()
     user = sp.current_user()
     return user["display_name"]
 
 
 def get_currently_playing() -> str:
+    sp = auth()
     song = sp.currently_playing()
 
     if song:
@@ -44,6 +45,7 @@ def get_currently_playing() -> str:
 
 
 def add_track_to_queue(query: str) -> str:
+    sp = auth()
     results = sp.search(query, limit=1, type="track")
     if results["tracks"]["items"]:
         title = results["tracks"]["items"][0]["name"]
@@ -66,6 +68,8 @@ def add_track_to_queue(query: str) -> str:
     
 
 def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
+    sp = auth()
+
     if amount > bound: amount = bound
     if amount < 1: amount = 1
 
@@ -94,6 +98,8 @@ def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
     
 
 def goto_next_track():
+    sp = auth()
+
     song = get_currently_playing()
     stripped = song.split(" // ", 1)[0]
 
@@ -106,6 +112,8 @@ def goto_next_track():
 
 
 def goto_prev_track():
+    sp = auth()
+
     song = get_currently_playing()
     stripped = song.split(" // ", 1)[0]
     
@@ -118,6 +126,8 @@ def goto_prev_track():
     
 
 def pause_current_track():
+    sp = auth()
+
     try:
         sp.pause_playback()
     except Exception as error:
@@ -132,6 +142,8 @@ def pause_current_track():
     
 
 def resume_current_track():
+    sp = auth()
+
     try:
         sp.start_playback()
     except Exception as error:
@@ -145,6 +157,8 @@ def resume_current_track():
         return f"Resumed {stripped}"
     
 def set_volume(volume: int):
+    sp = auth()
+
     if volume > 100 : volume = 100
     if volume < 0: volume = 0
 
@@ -154,3 +168,13 @@ def set_volume(volume: int):
             return f"Failed to change volume!"
     else:
         return f"Volume: {volume}%"
+
+
+def main():
+    print("Waiting on Spotify authentication...")
+    sp = auth()
+    if sp.current_user():
+        print("Spotify authenticated!")
+
+
+main()
