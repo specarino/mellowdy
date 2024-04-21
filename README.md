@@ -27,6 +27,8 @@ etc.
 ```
 Either run `main.py` to use the bot or pack it using,
 ```sh
+pip install pyinstaller
+
 cd hooks
 python hook-generator.py
 
