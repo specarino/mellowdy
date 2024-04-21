@@ -15,7 +15,7 @@ class Bot(commands.Bot):
 
     @routines.routine(minutes=5)
     async def keep_alive(self):
-        spotify.get_username()
+        spotify.auth()
         print(f"Keep alive pulse successful.")
 
 

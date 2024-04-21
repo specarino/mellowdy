@@ -39,7 +39,7 @@ def get_currently_playing() -> str:
             artists.append(artist["name"])
         url = song["item"]["external_urls"]["spotify"]
 
-        return f"{title} - {", ".join(artists)} // {url}"
+        return f"{title} - {', '.join(artists)} // {url}"
     else:
         return "Nothing is playing."
 
@@ -62,7 +62,7 @@ def add_track_to_queue(query: str) -> str:
         except SpotifyException:
             return f"Spotify is not running."
         else:
-            return f"Added {title} by {", ".join(artists)} to the queue!"
+            return f"Added {title} by {', '.join(artists)} to the queue!"
     else:
         return f"No results found for {query}"
     
@@ -87,7 +87,7 @@ def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
                 artists = list()
                 for artist in artists_json:
                     artists.append(artist["name"])
-                track = f"{title} by {", ".join(artists)}"
+                track = f"{title} by {', '.join(artists)}"
 
         if amount == 1:
             return track
