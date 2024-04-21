@@ -28,7 +28,7 @@ etc.
 Either run `main.py` to use the bot or pack it using,
 ```sh
 python hooks/hook-generator.py
-pyinstaller --onefile --runtime-hook hooks/hook-env-loader.py --name mellowdy main.py
+pyinstaller --onefile --runtime-hook hooks/hook-env-loader.py --name mellowdy --icon assets/mellowdy.ico main.py
 ```
 *`hook-generator.py` loads environmental variables from `.env` and creates a file called `hook-env-loader.py` which hardcodes in the variables. This file is then packed in with the executeable. Is it safe to do this? Probably not.*
 
