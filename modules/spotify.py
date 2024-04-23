@@ -70,6 +70,12 @@ def add_track_to_queue(query: str) -> str:
 def get_next_in_queue(amount: int = 1, bound: int = 10) -> str:
     sp = auth()
 
+    try:
+        amount = int(amount)
+        bound = int(bound)
+    except ValueError:
+        return "Amount of items in queue must be a number."
+
     if amount > bound: amount = bound
     if amount < 1: amount = 1
 
