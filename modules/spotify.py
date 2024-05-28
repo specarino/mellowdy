@@ -27,6 +27,15 @@ def get_username() -> str:
     return user["display_name"]
 
 
+def convert(milliseconds):
+    total = milliseconds // 1000
+
+    minutes = total // 60
+    seconds = total % 60
+    
+    return f"{minutes}:{seconds:02d}"
+
+
 def get_currently_playing() -> str:
     sp = auth()
     song = sp.currently_playing()
@@ -38,8 +47,10 @@ def get_currently_playing() -> str:
         for artist in artists_json:
             artists.append(artist["name"])
         url = song["item"]["external_urls"]["spotify"]
+        progress = song["progress_ms"]
+        length = song["item"]["duration_ms"]
 
-        return f"{title} - {', '.join(artists)} // {url}"
+        return f"{title} - {', '.join(artists)} // {convert(progress)}/{convert(length)} // {url}"
     else:
         return "Nothing is playing."
 
@@ -181,6 +192,7 @@ def main():
     sp = auth()
     if sp.current_user():
         print("Spotify authenticated!")
+    print(resume_current_track())
 
 
 main()
