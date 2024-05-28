@@ -192,7 +192,6 @@ def main():
     sp = auth()
     if sp.current_user():
         print("Spotify authenticated!")
-    print(resume_current_track())
 
 
 main()
